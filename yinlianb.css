@@ -1,0 +1,329 @@
+
+        /* 新UI样式 - 完全保留 */
+        .Nai-9RwaoltJT-Long {
+            max-height: calc(100% + 1px);
+            min-height: calc(100% + 1px);
+            max-width: 100%;
+            min-width: 100%;
+            position: relative;
+            overflow: hidden
+        }
+        
+        .Nai-lK4owCY2D-Long {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #fff;
+            height: 100%
+        }
+        
+        .Nai-jXZ2OdZjY-Long {
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            background-color: #fff
+        }
+        
+        .Nai-vOcBjaRof-Long {
+            width: 24px;
+            height: 24px
+        }
+        
+        .Nai-vOcBjaRof-Long+.Nai-vOcBjaRof-Long {
+            margin-left: 15px
+        }
+        
+        .Nai-QWZetxwi7-Long {
+            margin: 0 20px 0 0;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+        
+        .Nai-rx849zwtC-Long {
+            height: 26px
+        }
+        
+        .Nai-7nenqiaOY-Long {
+            width: 32px;
+            display: inline-block;
+            height: 22px;
+            margin-left: 4px
+        }
+        
+        .Nai-VuH0FJA7A-Long {
+            padding-top: 43px;
+            height: 160px;
+            background: url(/assets/img/M_main-banner.jpg) no-repeat 50%;
+            background-size: cover;
+            text-align: center
+        }
+        
+        .Nai-6FQ9ss4HM-Long {
+            width: 89.4%;
+            margin: 0 auto
+        }
+        
+        .Nai--oyOc4-Bl-Long {
+            font-size: 28px;
+            color: #fff;
+            letter-spacing: 2px;
+            text-align: center;
+            line-height: 52px
+        }
+        
+        .Nai-92qU7ElOJ-Long {
+            font-size: 13px;
+            color: #fff;
+            letter-spacing: .5px;
+            line-height: 22px;
+            margin: 0
+        }
+        
+        .Nai-m4eK0OaqY-Long {
+            margin-top: 26px
+        }
+        
+        .Nai-Kf7Qxu8---Long {
+            border: 1px solid #e3e3e3;
+            width: 100%;
+            padding: 20px 0;
+            float: none;
+            margin: 0 0 10px;
+            display: flex;
+            align-items: center
+        }
+        
+        .Nai-LHL-VamPC-Long {
+            width: 64px;
+            height: 64px;
+            margin: auto 30px
+        }
+        
+        .Nai-LHL-VamPC-Long img {
+            height: 100%;
+            width: 100%
+        }
+        
+        .Nai-W6QpVOevU-Long {
+            font-size: 20px;
+            color: #222;
+            letter-spacing: 2px;
+            line-height: 20px;
+            margin: 0 0 6px
+        }
+        
+        .Nai-WnFlClaRq-Long p {
+            font-size: 13px;
+            color: #222;
+            letter-spacing: .5px;
+            line-height: 24px
+        }
+        
+        .Nai-RAa0Z0wJV-Long {
+            border: 1px solid #e3e3e3;
+            width: 100%;
+            height: auto;
+            margin: 0 0 10px;
+            padding: 15px 20px
+        }
+        
+        .Nai-mussSzf68-Long {
+            font-size: 13px;
+            color: #dd2c34;
+            letter-spacing: 1px;
+            line-height: 18px;
+            margin: 0 0 6px;
+            font-weight: 700
+        }
+        
+        .Nai-RAa0Z0wJV-Long p {
+            font-size: 13px;
+            color: #222;
+            letter-spacing: .5px;
+            line-height: 24px
+        }
+        
+        @keyframes Nai-ExZZblugO-Long {
+            0% {
+                transform: rotate(0deg)
+            }
+        
+            to {
+                transform: rotate(1turn)
+            }
+        }
+        
+        :root {
+            --color-blue: #06f
+        }
+        
+        * {
+            margin: 0;
+            border: none;
+            outline: none;
+            padding: 0;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box
+        }
+        
+        ::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0
+        }
+        
+        html, body {
+            height: 100%;
+            width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        @supports (-webkit-touch-callout: none) {
+            .Nai-9RwaoltJT-Long {
+                min-height: -webkit-fill-available;
+            }
+        }
+        
+        /* 二维码容器样式 */
+        .qr-code-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 10px auto;
+        }
+        
+        .qr-code-container img[alt="专属客服二维码"] {
+            width: 110px;
+            height: 110px;
+            border: 1px solid #e3e3e3;
+            border-radius: 4px;
+        }
+        
+        .qr-code-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 24px;
+            background: white;
+            padding: 2px;
+            box-shadow: 0 0 4px rgba(0,0,0,0.1);
+        }
+        
+        /* 通知弹窗样式 */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .new-user-toast {
+            position: relative;
+            background: #4caf50;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            cursor: pointer;
+            will-change: transform,opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            margin-bottom: 10px;
+            pointer-events: auto;
+            min-width: 400px;
+            max-width: 400px;
+        }
+        
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-size: 16px;
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .toast-text {
+            flex: 1;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+        
+        .toast-close {
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: .8;
+            flex-shrink: 0;
+            transition: opacity .15s ease,transform .15s ease;
+            padding: 0;
+            margin-left: 8px;
+        }
+        
+        .notification-enter-active {
+            animation: notification-slide-in 0.3s ease-out;
+        }
+        
+        .notification-leave-active {
+            animation: notification-slide-out 0.3s ease-in forwards;
+        }
+        
+        @keyframes notification-slide-in {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes notification-slide-out {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }

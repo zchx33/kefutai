@@ -1,0 +1,484 @@
+
+        /* 价格输入框样式 */
+        .price-input-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-light);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .price-input-with-symbol {
+            padding-left: 20px;
+            width: 100%;
+            font-size: inherit;
+        }
+
+        /* 隐藏支付方式行 */
+        .pay-method-row {
+            display: none;
+        }
+        
+        
+        /* 随机图片按钮样式 */
+        .random-image-btn {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 4px 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .form-link-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .random-image-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-grow: 1;
+        }
+        
+        .random-image-container label {
+            min-width: 6em;
+        }
+        
+         .avatar-upload-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .avatar-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .avatar-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .avatar-btn {
+            padding: 6px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .order-number-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .order-number-input {
+            flex: 1;
+        }
+        
+        .generate-order-btn {
+            margin-left: 8px;
+            padding: 6px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        /* 日期时间输入框样式 */
+        input[type="datetime-local"] {
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: inherit;
+            color: var(--color-text-light);
+            width: 100%;
+        }
+        
+        /* 隐藏默认的日期选择器图标 */
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            opacity: 0.5;
+            cursor: pointer;
+        }
+         .XEdu-body {
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            color: #333;
+        }
+        
+        .XEdu-container {
+            width: 100%;
+            max-width: 420px;
+        }
+        
+        /* 头部 */
+        .XEdu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .XEdu-logo {
+            display: flex;
+            align-items: center;
+            font-size: 28px;
+            font-weight: 800;
+            color: #000;
+            letter-spacing: 1px;
+        }
+        
+        .XEdu-logo .XEdu-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ff2a2a;
+            border-radius: 50%;
+            margin-left: 2px;
+        }
+        
+        .XEdu-user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        /* 主卡片 */
+        .XEdu-main-card {
+            background-color: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        /* 商品预览 */
+        .XEdu-product-preview {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 280px;
+        }
+        
+        .XEdu-product-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            position: relative;
+            box-shadow: 0 10px 30px #01c2c3;
+            overflow: hidden;
+        }
+        
+        .XEdu-product-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff2a2a, #ff4757);
+            color: white;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 20px rgba(255, 42, 42, 0.3);
+            
+            transform: translateX(10px) rotate(5deg);
+            transform-origin: right top;
+            
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
+            
+            overflow: hidden;
+        }
+        
+        .XEdu-product-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: skewX(-15deg);
+            transform-origin: top right;
+        }
+        
+        .XEdu-product-tag::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 内容区域 */
+        .XEdu-content {
+            padding: 25px;
+        }
+        
+        .XEdu-share-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .XEdu-share-desc {
+            color: var(--XEdu-gray-color);
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        
+        /* 二维码区域 */
+        .XEdu-qrcode-section {
+            background-color: #f9f9f9;
+            border-radius: 18px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .XEdu-qrcode-container {
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        /* 二维码图案 */
+        .XEdu-qrcode {
+            display: grid;
+            grid-template-columns: repeat(21, 1fr);
+            grid-template-rows: repeat(21, 1fr);
+            gap: 1px;
+            width: 180px;
+            height: 180px;
+        }
+        
+        .XEdu-qr-cell {
+            background-color: #000;
+        }
+        
+        .XEdu-qr-logo {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: #000;
+        }
+        
+        .XEdu-qrcode-tip {
+            font-size: 14px;
+            color: var(--XEdu-gray-color);
+            text-align: center;
+        }
+        
+        .XEdu-qrcode-tip .XEdu-highlight {
+            color: var(--XEdu-accent-color);
+            font-weight: 600;
+        }
+        
+        /* 功能按钮 */
+        .XEdu-action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .XEdu-btn {
+            flex: 1;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .XEdu-btn-primary {
+            background-color: var(--XEdu-primary-color);
+            color: white;
+        }
+        
+        .XEdu-btn-primary:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .XEdu-btn-secondary {
+            background-color: white;
+            color: var(--XEdu-primary-color);
+            border: 2px solid var(--XEdu-border-color);
+        }
+        
+        .XEdu-btn-secondary:hover {
+            border-color: var(--XEdu-primary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* 底部信息 */
+        .XEdu-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--XEdu-border-color);
+        }
+        
+        .XEdu-footer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--XEdu-gray-color);
+        }
+        
+        .XEdu-footer-item i {
+            color: var(--XEdu-primary-color);
+        }
+        
+        /* 分享提示 */
+        .XEdu-share-tip {
+            background-color: white;
+            border-radius: 18px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+        }
+        
+        .XEdu-tip-text {
+            font-size: 14px;
+            color: var(--XEdu-gray-color);
+        }
+        
+        .XEdu-tip-text strong {
+            color: var(--XEdu-primary-color);
+        }
+        
+        .XEdu-tip-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--XEdu-primary-color);
+        }
+        
+        .XEdu-main-card {
+            animation: XEdu-fadeIn 0.6s ease-out;
+        }
+        
+        .XEdu-share-tip {
+            animation: XEdu-fadeIn 0.8s ease-out 0.3s both;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .XEdu-container {
+                max-width: 100%;
+            }
+            
+            .XEdu-product-preview {
+                height: 240px;
+            }
+            
+            .XEdu-product-image {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .XEdu-content {
+                padding: 20px;
+            }
+            
+            .XEdu-action-buttons {
+                flex-direction: column;
+            }
+            
+            .XEdu-footer {
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+        .form-link {
+            color: var(--color-blue);
+            overflow: hidden;
+            word-break: keep-all;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .XE-main{
+            margin: 0;
+               max-height: calc(100% + 1px);
+            min-height: calc(100% + 1px);
+            max-width: 100%;
+            min-width: 100%;
+            position: relative;
+            overflow: hidden;
+        }

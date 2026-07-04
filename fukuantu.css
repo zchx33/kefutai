@@ -1,0 +1,799 @@
+		/* 全局样式 */
+		:root {
+		    --color-blue: #0066ff;
+		    --color-gray-light: #f5f5f5;
+		    --color-gray-medium: #dbdbdb;
+		    --color-gray-dark: #9d9d9d;
+		    --color-text: #2d2d2d;
+		    --color-text-light: #555555;
+		    --color-background: #f7f7f7;
+		    --color-yellow: #fbe440;
+		}
+		
+		* {
+		    margin: 0;
+		    border: none;
+		    outline: none;
+		    padding: 0;
+		    touch-action: manipulation;
+		    -webkit-tap-highlight-color: transparent;
+		    box-sizing: border-box;
+		}
+		
+		*::-webkit-scrollbar {
+		    display: none;
+		    width: 0;
+		    height: 0;
+		}
+		
+		html, body, #app {
+		    overscroll-behavior: none;
+		    height: 100%;
+		    width: 100%;
+		}
+		
+		html {
+		    font-size: 16px;
+		    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+		}
+		
+		body, #app {
+		    overflow: hidden;
+		    background: #fff;
+		}
+		
+		body {
+		    box-sizing: border-box;
+		}
+		
+		svg {
+		    box-sizing: content-box;
+		}
+		
+		#app {
+		    display: flex;
+		    flex-direction: column;
+		    height: 100%;
+		    width: 100%;
+		}
+		
+		/* 主容器样式 */
+		.app-container {
+		    height: 100%;
+		    width: 100%;
+		    background: var(--color-gray-light);
+		    overflow: hidden;
+		    position: relative;
+		}
+		
+		.scroll-container {
+		    overscroll-behavior: none;
+		    height: 100%;
+		    width: 100%;
+		    overflow-y: scroll;
+		}
+		
+		/* 顶部栏样式 */
+		.top-header {
+		    padding-left: 8px;
+		    align-items: center;
+		    display: flex;
+		    height: 49px;
+		    position: relative;
+		}
+		
+		.action-buttons {
+		    margin-left: auto;
+		    position: absolute;
+		    right: 12px;
+		    top: 50%;
+		    transform: translateY(-50%);
+		    display: flex;
+		    align-items: center;
+		    gap: 8px;
+		}
+		
+		.copy-link-btn {
+		    display: flex;
+		    align-items: center;
+		    font-size: .86rem;
+		    gap: 6px;
+		    padding: 8px;
+		    background: #fff;
+		    border-radius: 8px;
+		    border: .5px solid #e0e0e0;
+		    cursor: pointer;
+		}
+		
+		/* 平台选择菜单 - 现代化标签页 */
+		.platform-tabs {
+		    display: flex;
+		    background-color: #fff;
+		    position: relative;
+		    box-sizing: border-box;
+		    font-size: 14px;
+		    font-weight: 500;
+		    padding: 6px 8px;
+		    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+		    gap: 4px;
+		}
+		
+		.tab {
+		    flex: 1;
+		    text-align: center;
+		    min-height: 36px;
+		    line-height: 36px;
+		    z-index: 2;
+		    text-decoration: none;
+		    color: #6b7280;
+		    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+		    position: relative;
+		    border-radius: 6px;
+		}
+		
+		/* 激活状态 - 现代简约 */
+		.tab.active {
+		    color: #3b82f6;
+		    background-color: #eff6ff;
+		    font-weight: 600;
+		}
+		
+		.tab:hover {
+		    color: #2563eb;
+		}
+		
+		/* 内容容器样式 */
+		.content-container {
+		    position: relative;
+		    width: 100%;
+		}
+		
+		.page-content {
+		    display: none;
+		}
+		
+		.page-content.active {
+		    display: block;
+		    animation: fadeIn 0.3s ease;
+		}
+
+		
+		/* 表单区域 - 卡片式现代化 */
+		.form-container {
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    width: 100%;
+		    padding: 12px;
+		    gap: 12px;
+		}
+		
+		.form-row {
+		    display: flex;
+		    align-items: center;
+		    background: #fff;
+		    padding: 0 16px;
+		    box-sizing: border-box;
+		    font-size: 15px;
+		    width: 100%;
+		    height: 52px;
+		    border-radius: 12px;
+		    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+		    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+		
+		.form-row:focus-within {
+		    box-shadow: 0 0 0 2px #3b82f6, 0 4px 6px rgb(0 0 0 / 0.07);
+		}
+		
+		.form-row label {
+		    word-break: keep-all;
+		    min-width: 5em;
+		    color: #111827;
+		    font-weight: 500;
+		}
+		
+		.form-row input, .form-row textarea, .form-link {
+		    appearance: none;
+		    -webkit-appearance: none;
+		    padding: 0;
+		    background: transparent;
+		    width: calc(100% - 80px);
+		    font-size: inherit;
+		    color: #374151;
+		    height: 100%;
+		    max-width: calc(100% - 80px);
+		    box-sizing: border-box;
+		}
+		
+		.form-row select {
+		    appearance: none;
+		    -webkit-appearance: none;
+		    padding: 0 28px 0 0;
+		    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right center;
+		    width: calc(100% - 80px);
+		    font-size: inherit;
+		    color: #374151;
+		    height: 100%;
+		    max-width: calc(100% - 80px);
+		    box-sizing: border-box;
+		    cursor: pointer;
+		}
+		
+		.form-link {
+		    align-content: center;
+		    color: #3b82f6;
+		    overflow: hidden;
+		    word-break: keep-all;
+		    white-space: nowrap;
+		    text-decoration: none;
+		    font-weight: 500;
+		}
+		
+		.order-number-btn {
+		    display: inline-block;
+		    margin-left: 8px;
+		    padding: 4px 8px;
+		    background: #f0f0f0;
+		    border-radius: 4px;
+		    font-size: 12px;
+		    cursor: pointer;
+		}
+		
+		.form-row textarea {
+		    resize: vertical;
+		    min-height: 60px;
+		    padding: 8px 0;
+		}
+		
+		.XE-main{
+		    margin: 0;
+		    max-height: 100vh;
+		    min-height: 100vh;
+		    max-width: 100%;
+		    min-width: 100%;
+		    position: relative;
+		    overflow: hidden;
+		}
+		
+		/* ============ 支付宝页面通用样式（所有支付宝页面共用） ============ */
+		.box {
+		    width: 100%;
+		}
+		
+		.bxs {
+		    width: 100%;
+		}
+		
+		.box-center {
+		    display: flex;
+		    justify-content: center;
+		}
+		
+		.zfb {
+		    width: 93%;
+		}
+		
+		.zfb-top {
+		    width: 100%;
+		    display: flex;
+		    justify-content: space-evenly;
+		    flex-direction: row;
+		    background-color: #f4f4f4;
+		    padding: 10px 0;
+		    position: relative;
+		}
+		
+		.lieb {
+		    width: 100%;
+		    padding: 10px 0;
+		}
+		
+		.lieb:nth-child(2) {
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		}
+		
+		.lieb:nth-child(1) {
+		    display: flex;
+		    align-items: center;
+		}
+		
+		.dd-center {
+		    display: flex;
+		    width: 100%;
+		    align-items: center;
+		    justify-content: space-between;
+		}
+		
+		.dd-center h4 {
+		    font-weight: 400;
+		}
+		
+		.fanh .fanh-center div {
+		    width: 12px;
+		    height: 12px;
+		    border: 1.5px solid #000;
+		    border-top: none;
+		    border-right: none;
+		    transform: rotate(45deg);
+		}
+		
+		.b {
+		    height: 45px;
+		}
+		
+		.zf {
+		    width: 100%;
+		    background-color: #fff;
+		    border-radius: 12px;
+		    padding: 25px 0;
+		    margin-top: 10px;
+		}
+		
+		.zfxq {
+		    width: 100%;
+		}
+		
+		.zf-center {
+		    width: 100%;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		}
+		
+		.fk-center {
+		    width: 100%;
+		    margin-top: 5px;
+		    display: flex;
+		    justify-content: center;
+		    text-align: center;
+		}
+		
+		.xq {
+		    margin-top: 30px;
+		}
+		
+		.xq-center {
+		    width: 100%;
+		}
+		
+		.lb {
+		    display: flex;
+		    font-size: 14px;
+		    flex-direction: row;
+		    margin-top: 15px;
+		    align-items: center;
+		}
+		
+		.lb-left {
+		    margin-left: 15px;
+		    color: #999999;
+		    width: 70px;
+		}
+		
+		.lieb-right {
+		    margin-left: 45px;
+		    color: #333333;
+		    flex: 1;
+		}
+		
+		.fh-fs div {
+		    width: 7px;
+		    height: 7px;
+		    border: 1.5px solid #999999;
+		    border-bottom: none;
+		    transform: rotate(45deg);
+		    border-left: none;
+		}
+		
+		.y {
+		    display: none;
+		}
+		
+		.x {
+		    width: 100%;
+		    margin-top: 10px;
+		    display: flex;
+		    justify-content: center;
+		    font-size: 14px;
+		    color: #999999;
+		    cursor: pointer;
+		}
+		
+		.x-center {
+		    display: flex;
+		    align-items: center;
+		}
+		
+		.x-right .x-fanh {
+		    width: 5px;
+		    height: 5px;
+		    border: 1px solid #999999;
+		    border-top: none;
+		    border-right: none;
+		    margin-left: 5px;
+		    transform: rotate(-45deg);
+		}
+		
+		.zdgl {
+		    padding: 14px;
+		    border-radius: 10px;
+		    background-color: #fff;
+		    margin-top: 10px;
+		    color: #333333;
+		    margin-bottom: 15px;
+		}
+		
+		.fl {
+		    display: flex;
+		    width: 100%;
+		    justify-content: space-between;
+		    margin-top: 20px;
+		    font-size: 14px;
+		}
+		
+		.f-left {
+		    color: #999999;
+		}
+		
+		.fl-right {
+		    display: flex;
+		    align-items: center;
+		}
+		
+		.f-right .f-center div {
+		    width: 5px;
+		    margin-left: 3px;
+		    height: 5px;
+		    border: 1px solid #999999;
+		    border-left: none;
+		    border-bottom: none;
+		    transform: rotate(45deg);
+		}
+		
+		.f-center {
+		    display: flex;
+		    align-items: center;
+		}
+		
+		.xt {
+		    width: 100%;
+		    height: 1px;
+		    background-color: #ececec;
+		    margin-top: 20px;
+		    margin-bottom: 15px;
+		}
+		
+		.bz {
+		    display: flex;
+		}
+		
+		.bzlb {
+		    width: 50%;
+		    display: flex;
+		    color: #0d3b7f;
+		    align-items: center;
+		    font-size: 13px;
+		}
+		
+		.bzlb-right {
+		    display: flex;
+		    align-items: center;
+		    margin-left: 4px;
+		}
+		
+		.text-center {
+		    display: flex;
+		    align-items: center;
+		}
+		
+		.bzlb-left {
+		    display: flex;
+		    align-items: center;
+		}
+		
+		/* 支付宝支付失败页面特定样式 */
+		.failure-avatar {
+		    width: 50px;
+		    height: 50px;
+		    border-radius: 50%;
+		    background-color: #ff4d4f;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    color: white;
+		    font-size: 20px;
+		    font-weight: bold;
+		}
+		
+		/* 支付宝退款页面特定样式 */
+		.refund-avatar {
+		    width: 50px;
+		    height: 50px;
+		    border-radius: 50%;
+		    background-color: #1E90FF;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    color: white;
+		    font-size: 20px;
+		    font-weight: bold;
+		}
+		
+		/* 支付宝成功页面特定样式 */
+		#logo {
+		    width: 45px;
+		    height: 45px;
+		    border-radius: 50%;
+		}
+		
+		.lieb-right:nth-child(2) {
+		    display: flex;
+		    align-items: center;
+		}
+		
+		.zfjl .zfjl-left .imgs-center img {
+		    width: 15px;
+		    height: 15px;
+		    border-radius: 50%;
+		    margin-right: 8px;
+		}
+		
+		.zfjl .zfjl-left .imgs-center {
+		    display: flex;
+		    align-items: center;
+		}
+		
+		.zfjl {
+		    background-color: #ffefdf;
+		    display: flex;
+		    flex-direction: row;
+		    align-items: center;
+		    padding: 4px 8px;
+		    border-radius: 20px;
+		    color: #ff6c22;
+		}
+		
+		.gg {
+		    background-color: #fff;
+		    margin-top: 15px;
+		    border-radius: 12px;
+		    padding: 14px 0;
+		}
+		
+		.gg-bottom {
+		    margin-top: 15px;
+		    display: flex;
+		}
+		
+		.gg-top {
+		    margin-left: 10px;
+		    font-size: 16px;
+		    font-weight: 300;
+		    display: flex;
+		    color: #333333;
+		    justify-content: space-between;
+		    margin-right: 10px;
+		}
+		
+		.skm {
+		    background: #d1f1ff;
+		    margin-left: 10px;
+		    width: 75px;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    height: 80px;
+		    border-radius: 10px;
+		}
+		
+		.skm-center {
+		    width: 45px;
+		    border-radius: 4px;
+		}
+		
+		.skm-center .skmzt .top {
+		    background-color: #fff;
+		    display: flex;
+		    align-items: center;
+		    height: 13px;
+		    justify-content: center;
+		    border-radius: 4px 4px 0 0;
+		}
+		
+		.skm-center .skmzt .top img {
+		    width: 23px;
+		}
+		
+		.skm-center .skmzt .bottom {
+		    background-color: #1c33ff;
+		    height: 50px;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    border-radius: 0px 0px 4px 4px;
+		}
+		
+		.m-center {
+		    position: relative;
+		    background: #fff;
+		    width: 30px;
+		    height: 35px;
+		    border-radius: 3px;
+		    margin-top: 2px;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		}
+		
+		.m {
+		    width: 100%;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		}
+		
+		#zfblogo {
+		    width: 5px;
+		    height: 5px;
+		    left: 50%;
+		    top: 50%;
+		    transform: translate(-50%, -50%);
+		    position: absolute;
+		}
+		
+		.ewm {
+		    width: 100%;
+		    margin-top: 3px;
+		    height: 24.5px;
+		    display: flex;
+		    justify-content: center;
+		    position: relative;
+		}
+		
+		.gglb:nth-child(2) {
+		    margin-left: 7px;
+		    font-size: 15px;
+		    margin-top: 3px;
+		}
+		
+		#tx {
+		    font-size: 13px;
+		    margin-top: 2px;
+		    color: #999999;
+		}
+		
+		.by {
+		    color: #ff794c;
+		    font-size: 13px;
+		    margin-top: 5px;
+		}
+		
+		.by span {
+		    border: 1px solid #ffd0c0;
+		    padding: 1.2px 0;
+		    width: 60px;
+		    border-radius: 4px;
+		    color: #ff794c;
+		}
+		
+		.gglb button {
+		    border: none;
+		    border-radius: 20px;
+		    color: #fff;
+		    padding: 3px 10px;
+		    background-color: #f93a4a;
+		}
+		
+		.gglb:nth-child(3) {
+		    align-items: center;
+		    display: flex;
+		    margin-left: 3cqb;
+		}
+		
+		.platform-image {
+		    border-radius: 50%;
+		    overflow: hidden;
+		    width: 50px;
+		    height: 50px;
+		}
+		
+		/* 微信成功页面特定样式 */
+		.wechat-preview {
+		    background: #fff;
+		    padding: 0;
+		    position: relative;
+		    overflow: hidden;
+		    min-height: 950px;
+		}
+		
+		.XE-rTi434ad--hxzc8 {
+		    height: 100%;
+		    width: 100%;
+		    position: absolute;
+		    left: 0;
+		    top: 0;
+		    object-fit: cover;
+		    overflow: hidden;
+		    opacity: 0.2;
+		    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+		}
+		
+		.XE-PX28-r1H9-hxzc8 {
+		    color: #09bb07;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    width: 100%;
+		    padding: 2vh 0;
+		    font-size: 1.03rem;
+		    gap: 0.75rem;
+		    font-weight: bold;
+		    position: relative;
+		    z-index: 1;
+		}
+		
+		.XE-xPRJL2Abe-hxzc8 {
+		    transform: translateX(0.25rem);
+		}
+		
+		.XE-uTLCJuWs2-hxzc8 {
+		    text-align: center;
+		    width: 100%;
+		    font-size: 1.04rem;
+		    margin-top: 9.6vh;
+		    position: relative;
+		    z-index: 1;
+		    color: #333;
+		    font-weight: 500;
+		}
+		
+		.XE-D7oQ56YtA-hxzc8 {
+		    font-family: 'fa1';
+		    margin-top: 1.046rem;
+		    width: 100%;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    gap: 0.375rem;
+		    position: relative;
+		    z-index: 1;
+		}
+		
+		.XE-DcBXWXKXs-hxzc8 {
+		    font-size: 2.2rem;
+		    transform: translate(0, -0.25rem);
+		    color: #333;
+		}
+		
+		.XE-TJ6L0LFFI-hxzc8 {
+		    font-size: 3rem;
+		    color: #333;
+		    font-weight: bold;
+		}
+		
+		.XE-oWN5vAPGA-hxzc8 {
+		    background-color: #f2f2f2;
+		    padding: 0.823rem 0;
+		    border-radius: 8px;
+		    font-size: 1.05rem;
+		    text-align: center;
+		    font-weight: bold;
+		    position: absolute;
+		    left: 50%;
+		    transform: translateX(-50%);
+		    width: 50vw;
+		    bottom: 15.5vh;
+		    word-break: keep-all;
+		    overflow: hidden;
+		    z-index: 1;
+		    color: #333;
+		}
+		
+		@font-face {
+		    font-family: 'fa1';
+		    src: url('data:font/opentype;base64,AAEAAAAPAIAAAwBwR1NVQiBE9QAAAPAAAAA+U09TLzJ+IEJQAAABoAAAAFZjbWFwB1oG5gAAAxAAAAK6Z2x5ZsVv3vYAABBIAAAQKGhlYWQeX8jMAAAA4AAAADZoaGVhBykD+AAAALwAAAAkaG10eBoAAAIAABDkAAAAIGxvY2EAjABqAAARBAAAABJtYXhwAQQAQQAAARgAAAAgbmFtZbR5Y9EAABF4AAACSG9yZWxBq4fqAAATyAAAAEwAAQAEAQEBQ0NLIj5fX1BDTFNURVhUAGNvcHlyaWdodCB0aGUgZm9udCBhdXRob3IocykgKGZvbnQgbmFtZSkAAlBoaWRlAAJwaGlkZQACYmxvYgJiAAJhYgAAAAA=') format("opentype");
+		}

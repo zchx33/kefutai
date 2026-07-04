@@ -1,0 +1,572 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* 头部 */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .header svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .header-title {
+            margin-left: 12px;
+            font-weight: bold;
+        }
+        
+/* 平台选择菜单 - 现代化标签页 */
+.platform-tabs {
+    display: flex;
+    background-color: #fff;
+    position: relative;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 12px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    min-height: 44px;
+    line-height: 44px;
+    z-index: 2;
+    min-width: 50%;
+    max-width: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    color: #6b7280;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-radius: 8px;
+    margin: 6px 4px;
+}
+
+/* 激活状态 - 现代简约 */
+.tab.active {
+    color: #3b82f6;
+    background-color: #eff6ff;
+    font-weight: 600;
+}
+
+.tab:hover {
+    color: #2563eb;
+}
+        
+        /* 表单区域 - 卡片式现代化 */
+        .form-section {
+            padding: 12px;
+            background: #f9fafb;
+            font-size: 15px;
+        }
+        
+        .form-item {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 0 16px;
+            box-sizing: border-box;
+            width: 100%;
+            height: 52px;
+            border-radius: 12px;
+            box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 12px;
+        }
+        
+        .form-item:focus-within {
+            box-shadow: 0 0 0 2px #3b82f6, 0 4px 6px rgb(0 0 0 / 0.07);
+        }
+        
+        .form-item label {
+            min-width: 5em;
+            color: #111827;
+            font-weight: 500;
+        }
+        
+        .form-item input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: inherit;
+            padding: 0;
+            background: transparent;
+            color: #374151;
+            height: 100%;
+        }
+        
+        .toggle-switch {
+            width: 50px;
+            height: 26px;
+            background-color: #e0e0e0;
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .toggle-switch.active {
+            background-color: #4CAF50;
+        }
+        
+        .toggle-switch::after {
+            content: "";
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background-color: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+        
+        /* 预览区域 */
+        .preview-section {
+            position: relative;
+        }
+        
+        .preview-content {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .preview-content.ysf {
+            background-color: #f5f5f5;
+        }
+        
+        .preview-content.wx {
+            background-color: #ededed;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* 确保至少占满整个视口 */
+        }
+        
+        /* 云闪付样式 */
+        .ysf-header {
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            height: 44px;
+            background-color: #fff;
+        }
+        
+        .ysf-header svg {
+            position: absolute;
+            left: 18px;
+        }
+        
+        .ysf-card {
+            padding: 18px;
+            background-color: #fff;
+            margin: 0 16px;
+            border-radius: 12px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+            margin-top: 10px;
+        }
+        
+        .ysf-info-list {
+            display: flex;
+            flex-direction: column;
+            margin-top: 12px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        
+        .ysf-info-item {
+            padding: 18px 0;
+            display: flex;
+            align-items: baseline;
+        }
+        
+        .ysf-info-item + .ysf-info-item {
+            border-top: .5px solid #dbdbdb;
+        }
+        
+        .ysf-info-label {
+            min-width: 6rem;
+            color: #707070;
+        }
+        
+        .ysf-info-value {
+            font-size: .92rem;
+        }
+        
+        .ysf-amount-section {
+            margin-top: 20px;
+        }
+        
+        .ysf-amount-title {
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+        
+        .ysf-amount-display {
+            font-family: "UnionpayNumber";
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #dbdbdb;
+            margin-bottom: 18px;
+        }
+        
+        .ysf-amount-display span {
+            font-size: 1.35rem;
+            margin-top: 4px;
+        }
+        
+        .ysf-amount-display b {
+            font-size: 2.2rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+        
+        .ysf-payment-card {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .ysf-payment-label {
+            min-width: 6rem;
+            color: #707070;
+            line-height: 20px;
+        }
+        
+        .ysf-payment-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ysf-payment-bank {
+            margin-bottom: 8px;
+            font-size: .9rem;
+            line-height: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            padding-right: 12px;
+        }
+        
+        .ysf-payment-notice {
+            color: #707070;
+            font-size: .88rem;
+            margin-bottom: 4px;
+        }
+        
+        .ysf-payment-balance {
+            font-size: .88rem;
+            color: #707070;
+            display: flex;
+            align-items: center;
+        }
+        
+        .ysf-transfer-all {
+            color: #4a7cff;
+            margin-left: 6px;
+            font-size: .88rem;
+            word-break: keep-all;
+        }
+        
+        .ysf-confirm-btn {
+            background-color: #e81d23;
+            color: #fff;
+            margin: 0 16px;
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 0;
+            border-radius: 32px;
+            cursor: pointer;
+        }
+        
+        .ysf-tips {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: .75rem;
+            margin: 0 16px;
+            margin-top: 36px;
+            color: #999;
+        }
+        
+        .ysf-tips span {
+            color: #e81d23;
+            font-weight: bold;
+        }
+        
+        /* 微信样式 */
+        .wx-cover {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            object-fit: cover;
+            overflow: hidden;
+            opacity: 0.4;
+        }
+        
+        .wx-cover img {
+            width: 100%;
+            transform: translateY(-48px);
+            object-fit: cover;
+        }
+        
+        .wx-header {
+            padding: 1.4vh 0;
+            box-sizing: border-box;
+            padding-left: 3vw;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .wx-header-title {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.09rem;
+            font-weight: bold;
+        }
+        
+        .wx-recipient {
+            box-sizing: border-box;
+            padding-left: 7.96vw;
+            padding-top: 3vh;
+            padding-bottom: 3.33vh;
+            display: flex;
+            flex-direction: column;
+            gap: .4vh;
+        }
+        
+        .wx-recipient-title {
+            font-weight: bold;
+            color: #000;
+            font-size: 1.045rem;
+        }
+        
+        .wx-recipient-name {
+            font-size: 0.74rem;
+            color: #7c7c7c;
+        }
+        
+        .wx-amount-section {
+            background-color: #fff;
+            border-radius: 14px 14px 0 0;
+            display: flex;
+            flex-direction: column;
+            flex: 1; /* 关键：占据剩余空间 */
+            margin-top: 10px;
+            padding-bottom: 20px;
+            }
+        
+        .wx-amount-title {
+            font-weight: bold;
+            font-size: .854rem;
+            width: 100%;
+            box-sizing: border-box;
+            padding-left: 7.94vw;
+            padding-top: 3.84vh;
+            color: #424242;
+        }
+        
+        .wx-amount-display {
+            font-family: 'fa1';
+            margin-top: 1.046rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #000;
+            margin-left: 7.78vw;
+        }
+        
+        .wx-amount-symbol {
+            font-size: 2.3rem;
+            transform: translate(0, -0.365rem);
+        }
+        
+        .wx-amount-value {
+            font-size: 3.25rem;
+        }
+        
+        .wx-divider {
+            height: 1px;
+            width: auto;
+            margin-left: 7.6vw;
+            margin-right: 7.6vw;
+            background-color: #f6f6f6;
+            margin-top: 1.08vh;
+        }
+        
+        /* 弹窗 */
+        .popup-overlay {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+        
+        .popup-overlay.wx {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .popup {
+            z-index: 11;
+            position: absolute;
+            background-color: #fff;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.01);
+            width: 80%;
+            max-width: 300px;
+        }
+        
+        .popup.wx {
+            border-radius: 8px;
+        }
+        
+        .popup-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 18px;
+            word-break: break-all;
+            box-sizing: border-box;
+            border-bottom: .5px solid #c2c2c2;
+            text-align: center;
+        }
+        
+        .popup-message.wx {
+            padding: 2.05rem 2rem;
+            font-size: 1.043rem;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.38rem;
+            word-break: break-all;
+            border-bottom: none;
+        }
+        
+        .popup-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-size: .95rem;
+        }
+        
+        .popup-buttons.wx {
+            display: flex;
+            border-top: .5px solid #ededed;
+            gap: .5px;
+            background-color: #ededed;
+            font-size: 1.05rem;
+            box-sizing: border-box;
+        }
+        
+        .popup-button {
+            flex: 1;
+            text-align: center;
+            padding: 16px;
+            cursor: pointer;
+        }
+        
+        .popup-button.wx {
+            flex: 1;
+            text-align: center;
+            background-color: #fff;
+            padding: 1rem 0;
+            box-sizing: border-box;
+        }
+        
+        .popup-button.wx:first-child {
+            padding-left: .5rem;
+        }
+        
+        .popup-button.wx:last-child {
+            padding-right: .5rem;
+            color: #4f689e;
+        }
+        
+        .popup-button.cancel {
+            color: #6a6a6a;
+        }
+        
+        .popup-button.confirm {
+            color: #e81d23;
+            border-left: .5px solid #c2c2c2;
+        }
+        
+        /* 保持现有的hidden类规则 */
+        .hidden {
+            display: none !important;
+        }
+
+        #ysf-preview.hidden,
+        #wx-preview.hidden {
+            display: none !important;
+        }
+
+        /* 确保初始状态正确 */
+        #wx-form {
+             display: none;
+         }
+
+        #wx-preview {
+             display: none;
+         }
+
+        #ysf-preview:not(.hidden),
+        #wx-preview:not(.hidden) {
+            display: block;
+        }
+        
+        /* 确保表单在没有hidden类时正确显示 */
+        #ysf-form:not(.hidden),
+        #wx-form:not(.hidden) {
+            display: block !important;
+        }

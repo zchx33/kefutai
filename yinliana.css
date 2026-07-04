@@ -1,0 +1,81 @@
+.form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 12px;
+            gap: 12px;
+        }
+        
+        .form-row {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 0 16px;
+            box-sizing: border-box;
+            font-size: 15px;
+            width: 100%;
+            height: 52px;
+            border-radius: 12px;
+            box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .form-row:focus-within {
+            box-shadow: 0 0 0 2px #3b82f6, 0 4px 6px rgb(0 0 0 / 0.07);
+        }
+        
+        .form-row label {
+            word-break: keep-all;
+            min-width: 5em;
+            color: #111827;
+            font-weight: 500;
+        }
+        
+        .form-link {
+            align-content: center;
+            color: #3b82f6;
+            overflow: hidden;
+            word-break: keep-all;
+            white-space: nowrap;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .copy-link-btn {
+            margin-left:auto;
+            width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+            gap: 6px;
+            padding: 8px 14px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #111827;
+        }
+        
+        .copy-link-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            transform: translateY(-1px);
+            box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+        }
+        
+        .copy-link-btn:active {
+            transform: translateY(0);
+        }
+        
+        .copy-link-btn.loading svg {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }

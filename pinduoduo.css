@@ -1,0 +1,778 @@
+
+        /* 新通知样式 - 从顶部进入 */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .new-user-toast {
+            position: relative;
+            background: #4caf50;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            cursor: pointer;
+            will-change: transform,opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            max-width: calc(100% - 20px);
+            margin-bottom: 10px;
+            pointer-events: auto;
+            min-width: 400px;
+            max-width: 400px;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-size: 16px;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .toast-text {
+            flex: 1;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .toast-close {
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: .8;
+            flex-shrink: 0;
+            transition: opacity .15s ease,transform .15s ease;
+            padding: 0;
+            margin-left: 8px;
+        }
+
+        .toast-close:hover {
+            opacity: 1;
+        }
+
+        .toast-close:active {
+            transform: scale(.85);
+        }
+
+        /* 通知进入和离开动画 - 从顶部进入 */
+        .notification-enter-active {
+            animation: notification-slide-in 0.3s ease-out;
+        }
+
+        .notification-leave-active {
+            animation: notification-slide-out 0.3s ease-in forwards;
+        }
+
+        @keyframes notification-slide-in {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes notification-slide-out {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        /* 暗色模式支持 */
+        @media (prefers-color-scheme: dark) {
+            .new-user-toast {
+                box-shadow: 0 4px 12px rgba(0,0,0,.3);
+            }
+
+            .toast-text {
+                color: #ffffff;
+            }
+        }
+
+        /* 多行文本支持 */
+        .toast-text.multiline {
+            line-height: 1.3;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        /* 隐藏状态 */
+        .toast-hidden {
+            display: none;
+        }
+
+        /* 不同颜色的通知 */
+        .new-user-toast.info {
+            background: #2196f3;
+        }
+
+        .new-user-toast.info .toast-icon {
+            color: #2196f3;
+        }
+
+        .new-user-toast.warning {
+            background: #ff9800;
+        }
+
+        .new-user-toast.warning .toast-icon {
+            color: #ff9800;
+        }
+
+        .new-user-toast.error {
+            background: #f44336;
+        }
+
+        .new-user-toast.error .toast-icon {
+            color: #f44336;
+        }
+
+		/* iOS风格开关 */
+		.toggle-switch {
+			position: relative;
+			width: 51px;
+			height: 31px;
+		}
+		
+		.toggle-switch input {
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+		
+		.switch-slider {
+		    width:60%;
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #e9e9eb;
+			transition: .4s;
+			border-radius: 34px;
+		}
+		
+		.switch-slider:before {
+			position: absolute;
+			content: "";
+			height: 27px;
+			width: 27px;
+			left: 2px;
+			bottom: 2px;
+			background-color: white;
+			transition: .4s;
+			border-radius: 50%;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+		}
+		
+		input:checked + .switch-slider {
+			background-color: #4cd964;
+		}
+		
+		input:checked + .switch-slider:before {
+			transform: translateX(20px);
+		}
+		
+		/* 开关容器样式 */
+		.switch-container {
+			display: flex;
+			align-items: center;
+		}
+		
+		/* 修改店铺头像预览区域样式 */
+		.badge-icon {
+			width: 20px;
+			height: 20px;
+			border-radius: 4px;
+			margin-right: 6px;
+			object-fit: cover;
+		}
+        /* 布局容器 */
+        .XEPDD .wrapper {
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+        
+        .XEPDD .container {
+            width: 100%;
+            max-width: 768px;
+            margin: 0 auto;
+        }
+        
+        /* 头部样式 */
+        .XEPDD .header {
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+        
+        .XEPDD .header-title {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            padding-right: 24px;
+        }
+        
+        .XEPDD .back-icon {
+            font-size: 24px;
+            color: #374151;
+        }
+        
+        /* 卡片样式 */
+        .XEPDD .card {
+            background-color: white;
+            overflow: hidden;
+        }
+        
+        /* 状态和地址区域 */
+        .XEPDD .status-address {
+            padding: 16px;
+        }
+        
+        .XEPDD .status-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .XEPDD .status-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .XEPDD .status-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .XEPDD .status-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 50px;
+            width: 1px;
+            background-color: #e5e7eb;
+        }
+        
+        .XEPDD .status-icon {
+            text-align: center;
+            margin-right: 12px;
+        }
+        
+        .XEPDD .status-icon svg {
+            font-size: 36px;
+            color: #00b52d;
+        }
+        
+        .XEPDD .status-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: #ff5454;
+        }
+        
+        .XEPDD .address-info {
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            margin-left: 12px;
+        }
+        
+        .XEPDD .address-info svg {
+            color: #333;
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+        
+        .XEPDD .address-text {
+            margin-left: 0;
+        }
+        
+        .XEPDD .right-arrow {
+            font-size: 18px;
+            color: #9ca3af;
+        }
+        
+        /* 商品详情 */
+        .XEPDD .product-header {
+            padding: 8px 8px 0px 14px;
+        }
+        
+        .XEPDD .product-header-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .XEPDD .badge-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            background-color: #fce7f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 3px;
+            flex-shrink: 0;
+        }
+        
+        .XEPDD .badge-text {
+            color: #ec4899;
+            font-weight: 700;
+        }
+        
+        .XEPDD .badge-title {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .XEPDD .product-details {
+            padding: 16px;
+        }
+        
+        .XEPDD .product-content {
+            display: flex;
+        }
+        
+        .XEPDD .product-image {
+            width: 96px;
+            height: 96px;
+            border-radius: 6px;
+            object-fit: cover;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .XEPDD .product-info {
+            flex: 1;
+        }
+        
+        .XEPDD .product-row {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .XEPDD .product-left {
+            flex: 1;
+            margin-right: 8px;
+        }
+        
+        .XEPDD .product-title-wrapper {
+      /*      display: flex; */
+         flex-wrap: wrap;
+      align-items: baseline;
+            margin-bottom: 4px;
+        }
+        
+        .XEPDD .tags {
+            display: flex;
+            margin-bottom: 0;
+        }
+        
+        .XEPDD .tag {
+            font-size: 12px;
+            border-radius: 2px;
+            padding: 1px 4px;
+            margin-right: 4px;
+            white-space: nowrap;
+        }
+        
+        .XEPDD .tag-presale {
+            border: 1px solid #ff4a4a;
+            color: #ff4a4a;
+        }
+        
+        .XEPDD .tag-subsidy {
+            color: white;
+            background: linear-gradient(to right, #FF5D41, #FF2D2D);
+            font-weight: 700;
+            font-style: italic;
+        }
+        
+        .XEPDD .tag-brand {
+            color: white;
+            background-color: #1f2937;
+        }
+        
+        .XEPDD .product-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.25;
+            display: inline;
+        }
+        
+        .XEPDD .product-spec {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .XEPDD .product-price {
+            text-align: right;
+        }
+        
+        .XEPDD .price {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .XEPDD .quantity {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .XEPDD .product-tags {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+        
+        .XEPDD .product-tag {
+            font-size: 12px;
+            background-color: #00b52d;
+            color: #fff;
+            border-radius: 4px;
+            padding: 2px 4px;
+            margin-right: 8px;
+        }
+        
+        .XEPDD .product-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+        
+        .XEPDD .action-btn {
+            background: white;
+            font-size: 14px;
+            border-radius: 4px;
+            padding: 2px 6px;
+            display: flex;
+            align-items: center;
+            margin-left: 12px;
+        }
+        
+        .XEPDD .action-chat {
+            border: 1px solid #d1d5db;
+            color: #333;
+        }
+        
+        .XEPDD .action-chat svg {
+            font-size: 16px;
+            margin-right: 4px;
+        }
+        
+        .XEPDD .action-refund {
+            border: 1px solid #ff4a4a;
+            color: #ff4a4a;
+        }
+        
+        .XEPDD .product-summary {
+            border-top: 1px solid #f3f4f6;
+            padding: 8px;
+            text-align: right;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .XEPDD .discount {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .XEPDD .discount-amount {
+            color: red;
+        }
+        
+        .XEPDD .total-price {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .XEPDD .total-amount {
+            font-size: 18px;
+            font-weight: 700;
+            color: red;
+        }
+        
+        /* 扫码联系客服 */
+        .XEPDD .customer-service {
+            padding: 20px 16px;
+            text-align: center;
+        }
+        
+        .XEPDD .service-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .XEPDD .service-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .XEPDD .qrcode-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        
+        .XEPDD .qrcode-image {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        
+        .XEPDD .qrcode-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .XEPDD .qrcode-text {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .XEPDD .service-tips {
+            font-size: 12px;
+            color: #999;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+        
+        .XEPDD .service-note {
+            font-size: 12px;
+            color: #ff6b6b;
+            background-color: #fff5f5;
+            padding: 6px 10px;
+            border-radius: 4px;
+            margin-top: 12px;
+            display: inline-block;
+        }
+        
+        /* 订单信息 */
+        .XEPDD .order-info {
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.625;
+        }
+        
+        .XEPDD .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+        }
+        
+        .XEPDD .info-label {
+            color: #666;
+        }
+        
+        .XEPDD .info-value {
+            color: #333;
+        }
+        
+        .XEPDD .info-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .XEPDD .info-text {
+            color: #333;
+            margin-right: 12px;
+        }
+        
+        .XEPDD .copy-btn {
+            background: white;
+            font-size: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 2px 12px;
+        }
+        
+        /* 底部导航 */
+        .XEPDD .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 12px;
+            border-top: 1px solid #e5e7eb;
+            z-index: 10;
+        }
+        
+        .XEPDD .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .XEPDD .footer-more {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+            padding: 0 8px;
+        }
+        
+        .XEPDD .footer-actions {
+            margin-left:auto;
+            display: flex;
+            align-items: center;
+        }
+        
+        .XEPDD .footer-btn {
+            font-size: 14px;
+            border-radius: 8px;
+            padding: 8px 16px;
+            margin-left: 12px;
+        }
+        
+        .XEPDD .btn-invoice {
+            background: white;
+            border: 1px solid #d1d5db;
+            color: #333;
+        }
+        
+        .XEPDD .btn-review {
+            background: white;
+            border: 1px solid #d1d5db;
+            color: #333;
+        }
+        
+        .XEPDD .btn-reorder {
+            background: white;
+            border: 1px solid #d1d5db;
+            color: #333;
+        }
+        
+        /* 二维码中的拼多多图标样式 */
+        .XEPDD .qrcode-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+        
+        .XEPDD .qrcode-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 375px) {
+            .XEPDD .main-content {
+                padding-left: 6px;
+                padding-right: 6px;
+            }
+            
+            .XEPDD .action-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+            
+            .XEPDD .footer-btn {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+            
+            .XEPDD .qrcode-image {
+                width: 160px;
+                height: 160px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .XEPDD .main-content {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            
+            .XEPDD .card {
+                margin-bottom: 12px;
+            }
+        }
+        .XE-main {
+            margin: 0;
+            max-height: calc(100% + 1px);
+            min-height: calc(100% + 1px);
+            max-width: 100%;
+            min-width: 100%;
+            position: relative;
+            overflow: hidden;
+        }

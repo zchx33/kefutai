@@ -1,0 +1,576 @@
+
+        /* 新通知样式 - 从顶部进入 */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .new-user-toast {
+            position: relative;
+            background: #4caf50;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            cursor: pointer;
+            will-change: transform,opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            max-width: calc(100% - 20px);
+            margin-bottom: 10px;
+            pointer-events: auto;
+            min-width: 400px;
+            max-width: 400px;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-size: 16px;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .toast-text {
+            flex: 1;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .toast-close {
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: .8;
+            flex-shrink: 0;
+            transition: opacity .15s ease,transform .15s ease;
+            padding: 0;
+            margin-left: 8px;
+        }
+
+        .toast-close:hover {
+            opacity: 1;
+        }
+
+        .toast-close:active {
+            transform: scale(.85);
+        }
+
+        /* 通知进入和离开动画 - 从顶部进入 */
+        .notification-enter-active {
+            animation: notification-slide-in 0.3s ease-out;
+        }
+
+        .notification-leave-active {
+            animation: notification-slide-out 0.3s ease-in forwards;
+        }
+
+        @keyframes notification-slide-in {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes notification-slide-out {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        /* 暗色模式支持 */
+        @media (prefers-color-scheme: dark) {
+            .new-user-toast {
+                box-shadow: 0 4px 12px rgba(0,0,0,.3);
+            }
+
+            .toast-text {
+                color: #ffffff;
+            }
+        }
+
+        /* 多行文本支持 */
+        .toast-text.multiline {
+            line-height: 1.3;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        /* 隐藏状态 */
+        .toast-hidden {
+            display: none;
+        }
+
+        /* 不同颜色的通知 */
+        .new-user-toast.info {
+            background: #2196f3;
+        }
+
+        .new-user-toast.info .toast-icon {
+            color: #2196f3;
+        }
+
+        .new-user-toast.warning {
+            background: #ff9800;
+        }
+
+        .new-user-toast.warning .toast-icon {
+            color: #ff9800;
+        }
+
+        .new-user-toast.error {
+            background: #f44336;
+        }
+
+        .new-user-toast.error .toast-icon {
+            color: #f44336;
+        }
+	      .preview-section {
+            max-height: calc(100% + 1px);
+            min-height: calc(100% + 1px);
+            max-width: 100%;
+            min-width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-content {
+            background: var(--color-background);
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 50px;
+            padding: 0 16px;
+        }
+
+        .preview-body {
+            padding: 18px;
+        }
+
+        .preview-title {
+            font-size: 23px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .preview-title-icon {
+            padding: 3px 0 0 4px;
+        }
+
+        .preview-title-icon svg {
+            background: white;
+            padding: 4px;
+            border-radius: 50%;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            width: 48px;
+            word-break: keep-all;
+            font-weight: bold;
+        }
+
+        .step.left-edge {
+            background: linear-gradient(to left, transparent 0 50%, var(--color-background) 50% 100%);
+            z-index: 99;
+        }
+
+        .step.right-edge {
+            background: linear-gradient(to right, transparent 0 50%, var(--color-background) 50% 100%);
+            z-index: 99;
+        }
+
+        .step-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            outline: 1px solid var(--color-gray-dark);
+            border-radius: 50%;
+            background: transparent;
+            background: var(--color-background);
+            z-index: 99;
+        }
+
+        .step-dot.active {
+            outline: none;
+            background: var(--color-text);
+        }
+
+        .step-dot.completed {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            font-size: 9px;
+            color: var(--color-background);
+            outline: none;
+            background: var(--color-text);
+            text-align: center;
+        }
+
+        .step-line {
+            position: absolute;
+            top: 7.5px;
+            left: 24px;
+            width: calc((100% - 48px) / 6);
+            border-bottom: 1px solid var(--color-text);
+        }
+
+        .step-line.dotted {
+            position: absolute;
+            top: 7.5px;
+            left: calc((100% - 48px) / 6 + 24px);
+            width: calc(((100% - 48px) / 6) * 5);
+            border-bottom: 1px dotted var(--color-gray-dark);
+        }
+
+        .platform-icon {
+            position: absolute;
+            right: 0;
+            max-width: 80px;
+            bottom: 48px;
+        }
+
+        .info-box {
+            font-size: 14px;
+            border-radius: 12px;
+            background: white;
+            padding: 8px 12px;
+            line-height: 21px;
+            color: #2d2d2da8;
+        }
+
+        .info-box.large-padding {
+            padding-bottom: 18px;
+        }
+
+        .info-box + .info-box {
+            margin-top: 12px;
+        }
+
+        .info-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin: 6px 0;
+            color: var(--color-text);
+        }
+
+        .info-box > div {
+            margin-bottom: 6px;
+        }
+
+        .customer-service-layout {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .service-text {
+            margin-right: 6px;
+        }
+
+        .service-text > div + div {
+            margin-top: 8px;
+        }
+
+        .qrcode-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .qrcode-wrapper {
+            position: relative;
+            height: 160px;
+        }
+
+        .qrcode-image {
+            position: absolute;
+            padding: 3px;
+            border-radius: 4px;
+            background-color: #fff;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .qrcode-image img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .highlight-text {
+            text-decoration: underline;
+            text-decoration-color: var(--color-yellow);
+            text-decoration-thickness: 6px;
+            text-underline-offset: -1.5px;
+            font-weight: bold;
+            color: var(--color-text);
+        }
+
+        .product-layout {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .product-image {
+            max-width: 90px;
+            min-width: 90px;
+            max-height: 90px;
+            min-height: 90px;
+            background: transparent;
+            border-radius: 12px;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .product-description {
+            font-size: 14px;
+            line-height: 15px;
+            font-weight: normal;
+            margin-right: 8px;
+            width: 100%;
+            word-break: break-all;
+            padding-top: 1px;
+            max-height: 90px;
+            overflow: hidden;
+        }
+
+        .product-price {
+            display:flex;
+            font-size: 14px;
+            letter-spacing: 0.2px;
+            vertical-align: top;
+            line-height: 14.8px;
+            padding-top: 1px;
+        }
+
+        .price-symbol {
+            font-weight: normal;
+            font-size: 11px;
+            margin-right: 1.3px;
+            font-family: AlibabaSans_102_Md;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--color-text);
+        }
+
+        .transaction-id {
+            color: #2d2d2da8;
+            font-weight: normal;
+            font-size: 13px;
+        }
+
+        .view-more {
+            padding: 10px 0 0 0;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .preview-actions {
+            position: absolute;
+            width: 100%;
+            background: white;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
+            border-top: 0.5px solid var(--color-gray-medium);
+            padding: 8px 0 calc(8px + env(safe-area-inset-bottom)) 0;
+            gap: 12px;
+        }
+
+        .action-button {
+            padding: 10px 26px;
+            font-weight: bold;
+            font-size: 15px;
+            background: var(--color-background);
+            border-radius: 24px;
+        }
+
+        .action-button.primary {
+            margin-right: 16px;
+            background: var(--color-yellow);
+        }
+       	.laobanweigui {
+		    position: absolute;
+		    padding: 0.1875rem;
+		    border-radius: .75rem;
+		    background-color: #fff;
+		    left: 50%;
+		    top: 50%;
+		    transform: translate(-50%, -50%);
+		    width: 2rem;
+		    height: 2rem;
+		    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+		}
+		.laobanweigui img {
+		    height: 100%;
+		    width: 100%;
+		}
+		.laobanweigui2 {
+		    font-weight: bold;
+		    font-size: 1rem;
+		    margin: .375rem 0;
+		    color: #2d2d2d;
+		}
+		.info-box > div {
+		    margin-bottom: 6px;
+		}
+		.laobanweigui3 {
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: flex-start;
+		}
+		.laobanweigui4 {
+		    color: #000;
+		    word-break: keep-all;
+		}
+		.laobanweigui5 {
+		    word-break: break-all;
+		    margin-left: 4rem;
+		}
+		.info-box > div {
+		    margin-bottom: .375rem;
+		}
+		.info-box p + p {
+		    margin-top: .375rem;
+		}
+		.preview-section:not(:first-child) {
+		display: none;
+		}
+		
+/* iOS风格开关 */
+.toggle-switch {
+    margin-left:20px;
+    position: relative;
+    width: 51px;
+    height: 31px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch-slider {
+    width: 60%; /* 这里将60%改为100%，因为原来的60%看起来太窄了 */
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e9e9eb;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 27px;
+    width: 27px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .switch-slider {
+    background-color: #4cd964;
+}
+
+input:checked + .switch-slider:before {
+    transform: translateX(20px);
+}
+
+/* 开关容器样式 */
+.switch-container {
+    display: flex;
+    align-items: center;
+}
+
+/* 禁用状态的开关 */
+.toggle-switch.disabled .switch-slider {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+}
+
+.toggle-switch.disabled input:checked + .switch-slider {
+    background-color: #c8e6c9;
+}

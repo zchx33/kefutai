@@ -1,0 +1,309 @@
+		/* 代付卡片样式 */
+		.xedf-card {
+		    max-width: 300px;
+		    background: white;
+		    border-radius: 12px;
+		    overflow: hidden;
+
+		    border: 1px solid #e0e0e0;
+		    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		}
+		
+		.xedf-header {
+		    padding: 12px 16px;
+		    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		    color: white;
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		}
+		
+		.xedf-title {
+		    font-size: 16px;
+		    font-weight: 600;
+		}
+		
+		.xedf-order-id {
+		    font-size: 12px;
+		    opacity: 0.9;
+		    background: rgba(255, 255, 255, 0.2);
+		    padding: 2px 6px;
+		    border-radius: 10px;
+		}
+		
+		.xedf-body {
+		    padding: 16px;
+		}
+		
+		.xedf-app-info {
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    margin-bottom: 12px;
+		    padding-bottom: 12px;
+		    border-bottom: 1px solid #f0f0f0;
+		}
+		
+		.xedf-app-name {
+		    font-size: 14px;
+		    color: #333;
+		    font-weight: 500;
+		}
+		
+		.xedf-amount {
+		    font-size: 20px;
+		    color: #f5222d;
+		    font-weight: bold;
+		}
+		
+		.xedf-user-info {
+		    display: flex;
+		    align-items: center;
+		    gap: 12px;
+		    margin-bottom: 12px;
+		    padding: 12px;
+		    background: #f8f9fa;
+		    border-radius: 8px;
+		}
+		
+		.xedf-avatar {
+		    width: 40px;
+		    height: 40px;
+		    border-radius: 50%;
+		    overflow: hidden;
+		    flex-shrink: 0;
+		}
+		
+		.xedf-avatar img {
+		    width: 100%;
+		    height: 100%;
+		    object-fit: cover;
+		}
+		
+		.xedf-details {
+		    flex: 1;
+		}
+		
+		.xedf-detail-item {
+		    display: flex;
+		    justify-content: space-between;
+		    font-size: 12px;
+		    color: #666;
+		    line-height: 1.5;
+		}
+		
+		.xedf-detail-item span:first-child {
+		    color: #999;
+		    min-width: 40px;
+		}
+		
+		.xedf-product {
+		    margin-bottom: 12px;
+		    padding-bottom: 12px;
+		    border-bottom: 1px solid #f0f0f0;
+		}
+		
+		.xedf-product-title {
+		    font-size: 14px;
+		    color: #333;
+		    font-weight: 500;
+		    margin-bottom: 4px;
+		}
+		
+		.xedf-product-desc {
+		    font-size: 12px;
+		    color: #666;
+		    line-height: 1.4;
+		}
+		
+		.xedf-status {
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    font-size: 13px;
+		    margin-bottom: 12px;
+		}
+		
+		.xedf-status-value {
+		    padding: 2px 8px;
+		    border-radius: 12px;
+		    font-size: 12px;
+		    font-weight: 500;
+		}
+		
+		.status-active {
+		    background: #e6f7ff;
+		    color: #1890ff;
+		}
+		
+		.status-inactive {
+		    background: #f5f5f5;
+		    color: #999;
+		}
+		
+		.status-paid {
+		    background: #f6ffed;
+		    color: #52c41a;
+		}
+		
+		.xedf-footer {
+		    padding: 12px 16px;
+		    background: #fafafa;
+		    text-align: center;
+		}
+		
+		.xedf-pay-link {
+		    text-decoration: none;
+		    display: block;
+		}
+		
+		.xedf-pay-button {
+		    width: 100%;
+		    padding: 10px 20px;
+		    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		    color: white;
+		    border: none;
+		    border-radius: 8px;
+		    font-size: 14px;
+		    font-weight: 500;
+		    cursor: pointer;
+		    transition: all 0.3s;
+		}
+		
+		.xedf-pay-button:hover {
+		    transform: translateY(-1px);
+		    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+		}
+		
+		.xedf-retry-button {
+		    width: 100%;
+		    padding: 8px 16px;
+		    background: #f5f5f5;
+		    color: #666;
+		    border: 1px solid #d9d9d9;
+		    border-radius: 6px;
+		    font-size: 13px;
+		    cursor: pointer;
+		    transition: all 0.3s;
+		}
+		
+		.xedf-retry-button:hover {
+		    background: #e8e8e8;
+		}
+		
+		/* 实名卡片样式 */
+		.xekk-card {
+		    max-width: 280px;
+		    background: white;
+		    border-radius: 12px;
+		    overflow: hidden;
+		    border: 1px solid #e0e0e0;
+		    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		}
+		
+		.xekk-header {
+		    padding: 12px 16px;
+		    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+		    color: white;
+		    text-align: center;
+		}
+		
+		.xekk-title {
+		    font-size: 16px;
+		    font-weight: 600;
+		    margin-bottom: 4px;
+		}
+		
+		.xekk-verify-id {
+		    font-size: 12px;
+		    opacity: 0.9;
+		}
+		
+		.xekk-body {
+		    padding: 16px;
+		}
+		
+		.xekk-verify-info {
+		    text-align: center;
+		    margin-bottom: 16px;
+		    padding-bottom: 16px;
+		    border-bottom: 1px solid #f0f0f0;
+		}
+		
+		.xekk-verify-title {
+		    font-size: 15px;
+		    color: #333;
+		    font-weight: 500;
+		    margin-bottom: 8px;
+		}
+		
+		.xekk-verify-remark {
+		    font-size: 13px;
+		    color: #666;
+		    line-height: 1.4;
+		}
+		
+		.xekk-status {
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    font-size: 13px;
+		    color: #666;
+		    margin-bottom: 16px;
+		    padding: 8px 12px;
+		    background: #f8f9fa;
+		    border-radius: 6px;
+		}
+		
+		.xekk-actions {
+		    display: flex;
+		    gap: 8px;
+		}
+		
+		.xekk-start-btn,
+		.xekk-detail-btn {
+		    flex: 1;
+		    padding: 8px 12px;
+		    border: none;
+		    border-radius: 6px;
+		    font-size: 13px;
+		    font-weight: 500;
+		    cursor: pointer;
+		    transition: all 0.3s;
+		}
+		
+		.xekk-start-btn {
+		    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		    color: white;
+		}
+		
+		.xekk-detail-btn {
+		    background: #f0f0f0;
+		    color: #666;
+		}
+		
+		.xekk-start-btn:hover {
+		    transform: translateY(-1px);
+		    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+		}
+		
+		.xekk-detail-btn:hover {
+		    background: #e8e8e8;
+		}
+		
+		/* 错误样式 */
+		.xedf-card.error,
+		.xekk-card.error {
+		    background: #fff2f0;
+		    border-color: #ffccc7;
+		}
+		
+		.xedf-card .error-message,
+		.xekk-card .error-message {
+		    color: #ff4d4f;
+		    font-size: 13px;
+		    margin-bottom: 8px;
+		    padding: 8px 12px;
+		    background: #fff2f0;
+		    border-radius: 4px;
+		}

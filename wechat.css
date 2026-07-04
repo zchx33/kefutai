@@ -1,0 +1,137 @@
+.XE-container {
+    position: relative; /* 为绝对定位的子元素创建相对定位上下文 */
+    width: 100%;
+    min-height: 100vh; /* 或者根据内容自适应高度 */
+
+}
+.XE-background {
+    position: relative; /* 关键：创建定位上下文 */
+    width: 100%;
+    overflow: hidden; /* 防止内容溢出 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+       .XE-bg-image {
+    position: absolute;
+    width: 100%;
+    height: 100%; /* 改为100%高度，跟随容器 */
+    left: 0;
+    top: 0;
+    object-fit: cover; /* 保持图片比例并覆盖整个容器 */
+    z-index: 1; /* 确保在内容之下 */
+}
+
+.XE-content {
+    position: relative; /* 确保内容在背景之上 */
+    z-index: 2;
+    width: 100%;
+    padding: .9375rem;
+}
+        .XE-logo {
+            height: 1.3125rem;
+        }
+        .XE-card {
+            position: relative;
+            padding: .9375rem;
+            margin-top: .75rem;
+            border-radius: .5rem;
+            background: #fff;
+            box-shadow: 0 0.125rem .5rem 0 rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: flex-start;
+            z-index: 3;
+        }
+        .XE-title {
+            height: 1.5rem;
+        }
+        .XE-title.margin-top {
+            margin-top: .9375rem;
+        }
+        .XE-description {
+            position: relative;
+            margin-top: .375rem;
+            font-size: .8125rem;
+            color: #666;
+        }
+        .XE-flex-row {
+            display: flex;
+            align-items: flex-start;
+            width: 100%;
+            margin-top: .375rem;
+            gap: .75rem;
+        }
+        .XE-button {
+            width: 100%;
+            height: 2.5rem;
+            background: #1978ff;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #fff;
+            margin-top: .75rem;
+            font-size: .96rem;
+        }
+        .XE-features {
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .XE-feature-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10rem;
+            z-index: 2;
+        }
+        .XE-feature-card {
+            padding: .9375rem;
+            margin-top: .5rem;
+            border-radius: .375rem;
+            overflow: hidden;
+            background-repeat: no-repeat, no-repeat;
+            background-size: contain, cover;
+            background-position: right, left;
+            width: 100%;
+        }
+        .XE-feature-card.blue {
+            background: #65A4FB;
+            background-image: url(/assets/img/wx/1.png);
+        }
+        .XE-feature-card.purple {
+            background: #3B66E7;
+            background-image: url(/assets/img/wx/2.png);
+        }
+        .XE-feature-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .XE-feature-icon {
+            height: 1.4375rem;
+        }
+        .XE-feature-button {
+            height: 1.46875rem;
+            padding: 0 .75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: .0625rem solid #fff;
+            border-radius: .875rem;
+            backdrop-filter: blur(0.1875rem);
+            -webkit-backdrop-filter: blur(0.1875rem);
+            color: #fff;
+            font-size: 0.6875rem;
+        }
+        .XE-feature-desc {
+            margin-top: .375rem;
+            font-size: 0.6875rem;
+            line-height: 1.125rem;
+            color: #fff;
+        }

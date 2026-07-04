@@ -1,0 +1,188 @@
+
+        .XEbq-page-background { background: #f2f6f9; }   
+        .XEbq-content-background { background: #f7f7f7; }
+        .XEbq-header { 
+            min-height: 3.125rem;
+            display: flex;
+            align-items: center;
+            padding-left: .8125rem;
+            background: #f7f7f7;
+        }
+        .XEbq-main-content {     background: #f7f7f7;
+    padding: .875rem; }
+        .XEbq-card { 
+            background: #fff;
+            padding: 1rem;
+            border-radius: .875rem;
+        }
+        .XEbq-card-title { 
+            font-weight: bold;
+            font-size: 1.125rem;
+            margin-bottom: .75rem;
+        }
+        .XEbq-card + .XEbq-card { margin-top: .75rem; }
+        .XEbq-progress-container { 
+            display: flex;
+            justify-content: space-between;
+            font-size: .625rem;
+            font-weight: bold;
+            position: relative;
+        }
+        .XEbq-progress-bar { 
+            height: .0625rem;
+            width: calc((100% - 3rem) / 4);
+            position: absolute;
+            background: #ffdc00;
+            top: .9375rem;
+            transform: translate(0, -50%);
+            left: 1.5rem;
+        }
+        .XEbq-progress-bar.inactive {
+            left: calc(1.5rem + (100% - 3rem) / 4);
+            width: calc((100% - 3rem) / 4 * 3);
+            background: #9d9d9d;
+        }
+        .XEbq-progress-step { 
+            min-width: 4em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .XEbq-progress-step.active { z-index: 99; }
+        .XEbq-progress-step.last { 
+            background: linear-gradient(to left, white 0 50%, transparent 50% 100%);
+            z-index: 99;
+        }
+        .XEbq-step-indicator { 
+            height: 1.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 1.25rem;
+            background: white;
+            z-index: 88;
+            margin-bottom: 0.1875rem;
+        }
+        .XEbq-step-dot { 
+            width: .5rem;
+            height: .5rem;
+            border-radius: 50%;
+            background: #ffdc00;
+            border: 0.1875rem solid #ffdc00;
+        }
+        .XEbq-step-dot.inactive {
+            background: transparent;
+            border: .0625rem solid #9d9d9d;
+        }
+        .XEbq-text-highlight { font-weight: bold; color: #ffdc00; }
+        .XEbq-notice-text { 
+            color: #000;
+            font-size: .875rem;
+            margin-bottom: 0.25rem;
+            z-index: 9;
+        }
+        .XEbq-notice-container { 
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .XEbq-notice-row { 
+            display: flex;
+            width: 100%;
+            justify-content: space-between; 
+        }
+        .XEbq-notice-tip { 
+            font-size: .78125rem;
+            padding: .5rem .375rem 0 0;
+            color: #999;
+        }
+        .XEbq-qr-code-container { 
+            border-radius: .375rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: .5rem 0 0.25rem;
+            border-radius: .75rem;
+            padding: 0 .375rem 0 0.125rem;
+            align-self: flex-end;
+        }
+        .XEbq-section-title { 
+            display: flex;
+            align-items: center;
+            margin: 1rem 0 .75rem 0;
+            font-weight: bold;
+        }
+        .XEbq-section-title::before {
+            display: inline-block;
+            content: "";
+            height: 1.125rem;
+            min-width: 0.25rem;
+            background: #ffdc00;
+            border-radius: .375rem;
+            margin-right: 0.3125rem;
+            margin-left: 0.09375rem;
+        }
+        .XEbq-order-item { display: flex; }
+        .XEbq-product-image { 
+            overflow: hidden;
+            min-height: 6.25rem;
+            min-width: 6.25rem;
+            max-height: 6.25rem;
+            max-width: 6.25rem;
+            background: transparent;
+            border-radius: .375rem;
+            object-fit: cover;
+        }
+        .XEbq-product-info { 
+            width: 100%;
+            font-size: .9375rem;
+            word-break: break-all;
+            line-height: 1.125rem;
+            margin-left: .375rem;
+            max-height: 5.6875rem;
+            overflow: hidden;
+        }
+        .XEbq-product-price { font-size: .8125rem; line-height: 1.03125rem; }
+        .XEbq-price-large { font-size: 1.15em; font-weight: bold; }
+        .XEbq-price-large.normal { font-size: 1em; }
+        .XEbq-order-details { 
+            font-size: .95rem;
+            box-sizing: border-box;
+
+            flex: 1;
+            border-radius: .375rem;
+        }
+        .XEbq-order-details > div:first-child > div:first-child { font-weight: bold; }
+        .XEbq-detail-row { 
+            margin-top: .625rem;
+            display: flex;
+            font-size: .875rem;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+        .XEbq-view-more { 
+            text-align: center;
+            color: #999999;
+            font-size: .9375rem;
+            margin-top: .9375rem;
+        }
+         .XE-main {
+            margin: 0;
+            max-height: calc(100% + 1px);
+            min-height: calc(100% + 1px);
+            max-width: 100%;
+            min-width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 新增样式 */
+        .order-number-btn {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 4px 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }

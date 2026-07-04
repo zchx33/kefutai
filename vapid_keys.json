@@ -1,0 +1,5 @@
+{
+    "publicKeyRaw": "BIza7ydY\/jRDTFiQy+psw6uzxxCNfRfXAHi8naVk4CZNHWnMGsqqPu7p54C0LuPtJ70mg9SaxpF+1awtA5Kik60=",
+    "publicKeyB64": "BIza7ydY_jRDTFiQy-psw6uzxxCNfRfXAHi8naVk4CZNHWnMGsqqPu7p54C0LuPtJ70mg9SaxpF-1awtA5Kik60",
+    "privateKeyPem": "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgqPuRwXsFWw6Q8zYT\nDxlidYxj3KfQL6dRVwbhwnmG+oyhRANCAASM2u8nWP40Q0xYkMvqbMOrs8cQjX0X\n1wB4vJ2lZOAmTR1pzBrKqj7u6eeAtC7j7Se9JoPUmsaRftWsLQOSopOt\n-----END PRIVATE KEY-----\n"
+}
