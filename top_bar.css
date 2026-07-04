@@ -1,0 +1,17 @@
+    .top-header {
+    padding-left: 8px;
+    align-items: center;
+    display: flex;
+    height: 49px;
+    position: relative;
+}
+.action-buttons {
+    margin-left: auto;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
