@@ -1,0 +1,489 @@
+<?php
+if (!defined('FROM_ROUTER')) {
+    http_response_code(403);
+    exit('喜乐科技@x60898');
+}
+session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/dbconfig.php';
+checkLogin();
+
+$currentAgent = $_SESSION['username'];
+
+function generateCustomerName($length = 6) {
+    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
+}
+
+// 生成XEDATA令牌
+function generateXEDataToken() {
+    return md5(uniqid(mt_rand(), true));
+}
+
+// 创建会话记录到 XE-SKDJWKSNCDATA 表
+function createChatSession($sessionId, $customerName, $agentAccount, $platform = '通用') {
+    $db = getDB();
+    if (!$db) return false;
+    
+    $xedataToken = generateXEDataToken();
+    $expiresAt = date('Y-m-d H:i:s', strtotime('+7 days'));
+    
+    $stmt = $db->prepare("INSERT INTO `XE-SKDJWKSNCDATA` 
+                         (session_id, xedata_token, customer_name, agent_account, expires_at, platform) 
+                         VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $sessionId, $xedataToken, $customerName, $agentAccount, $expiresAt, $platform);
+    
+    if ($stmt->execute()) {
+        return $xedataToken;
+    }
+    return false;
+}
+
+$customerName = generateCustomerName();
+$sessionId = 'a' . $customerName . 'z-p' . $currentAgent . 's';
+// 生成XEDATA令牌并保存到数据库
+$xedataToken = createChatSession($sessionId, $customerName, $currentAgent, '通用');
+
+$currentDomain = $_SERVER['HTTP_HOST'];
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+$baseUrl = $protocol . "://" . $currentDomain;
+$originalServiceUrl = $baseUrl . '/' . "ChatDM" . '?id=' . $sessionId;
+
+// 添加XEDATA参数
+if ($xedataToken) {
+    $originalServiceUrl .= '&XEDATA=' . $xedataToken;
+}
+
+// 获取防红配置（修复版，调整优先级）
+function getAntiRedConfig($username) {
+     $db = getDB();
+    if (!$db) return null;
+    
+    // 1. 首先检查防红开关是否开启
+    $stmt = $db->prepare("SELECT apply_status FROM user_anti_red_config WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $config = $result->fetch_assoc();
+    
+    if (!$config) {
+        // 如果没有配置记录，默认防红开关开启
+        $apply_status = 'on';
+    } else {
+        $apply_status = $config['apply_status'];
+    }
+    
+    // 如果防红开关关闭，直接返回null
+    if ($apply_status === 'off') {
+        return null;
+    }
+    
+    // 2. 防红开关开启的情况下，检查session中是否有应用的接口（付费或免费）
+    if (isset($_SESSION['applied_api_url']) && !empty($_SESSION['applied_api_url'])) {
+        $type = $_SESSION['applied_domain_type'] ?? 'paid';
+        $applied_domain = $_SESSION['applied_domain'] ?? '付费接口';
+        
+        return [
+            'api_url' => $_SESSION['applied_api_url'],
+            'apply_status' => 'on',
+            'applied_domain' => $applied_domain,
+            'encoding_mode' => 'base64',
+            'type' => $type
+        ];
+    }
+    
+    // 3. 检查session中是否有自定义接口
+    if (isset($_SESSION['custom_interface_url']) && !empty($_SESSION['custom_interface_url'])) {
+        return [
+            'api_url' => $_SESSION['custom_interface_url'],
+            'apply_status' => 'on',
+            'applied_domain' => isset($_SESSION['custom_interface_remark']) ? $_SESSION['custom_interface_remark'] : '自定义接口',
+            'encoding_mode' => isset($_SESSION['custom_encoding_mode']) ? $_SESSION['custom_encoding_mode'] : 'base64',
+            'type' => 'custom'
+        ];
+    }
+    
+    // 4. 从数据库查询用户配置
+    if ($config['apply_status'] === 'on' && !empty($config['applied_domain'])) {
+        $applied_domain = $config['applied_domain'];
+        
+        // 先尝试从免费接口表中查找
+        $freeStmt = $db->prepare("SELECT api_url FROM freeantired WHERE name = ? AND status = 'active'");
+        $freeStmt->bind_param("s", $applied_domain);
+        $freeStmt->execute();
+        $freeResult = $freeStmt->get_result();
+        
+        if ($freeResult->num_rows > 0) {
+            // 是免费接口
+            $freeData = $freeResult->fetch_assoc();
+            $config['api_url'] = $freeData['api_url'];
+            $config['type'] = 'free';
+            $config['encoding_mode'] = 'base64';
+            return $config;
+        }
+        
+        // 再尝试从付费接口表中查找
+        $paidStmt = $db->prepare("SELECT api_url FROM anti_red_links WHERE domain_name = ? AND sold_to = ?");
+        $paidStmt->bind_param("ss", $applied_domain, $username);
+        $paidStmt->execute();
+        $paidResult = $paidStmt->get_result();
+        
+        if ($paidResult->num_rows > 0) {
+            // 是付费接口
+            $paidData = $paidResult->fetch_assoc();
+            $config['api_url'] = $paidData['api_url'];
+            $config['type'] = 'paid';
+            $config['encoding_mode'] = 'base64';
+            return $config;
+        }
+        
+        // 如果都不是，检查是否是自定义接口（在 userantired 表中）
+        $customStmt = $db->prepare("SELECT ua.api_url, ua.encoding 
+                                    FROM userantired ua 
+                                    JOIN users u ON ua.user_id = u.id 
+                                    WHERE u.username = ? AND ua.remark = ? AND ua.status = 'active'");
+        $customStmt->bind_param("ss", $username, $applied_domain);
+        $customStmt->execute();
+        $customResult = $customStmt->get_result();
+        
+        if ($customResult->num_rows > 0) {
+            // 是自定义接口
+            $customData = $customResult->fetch_assoc();
+            $config['api_url'] = $customData['api_url'];
+            $config['encoding_mode'] = $customData['encoding'] ?? 'base64';
+            $config['type'] = 'custom';
+            return $config;
+        }
+    }
+    
+    return null;
+}
+
+$antiRedConfig = getAntiRedConfig($currentAgent);
+$serviceUrl = $originalServiceUrl;
+
+// 读取源站URL配置
+$db = getDB();
+$webconfigResult = $db->query("SELECT site_url, site_url_enabled FROM webconfig ORDER BY id DESC LIMIT 1");
+$siteUrlConfig = null;
+if ($webconfigResult && $webconfigResult->num_rows > 0) {
+    $siteUrlConfig = $webconfigResult->fetch_assoc();
+}
+
+if ($antiRedConfig && $antiRedConfig['apply_status'] === 'on' && !empty($antiRedConfig['api_url'])) {
+    $encoding_mode = $antiRedConfig['encoding_mode'] ?? 'base64';
+    
+    // 根据编码模式处理URL
+    switch ($encoding_mode) {
+        case 'base64':
+            $encodedUrl = base64_encode($originalServiceUrl);
+            break;
+        case 'urlencode':
+        case 'url':
+            $encodedUrl = urlencode($originalServiceUrl);
+            break;
+        case 'none':
+        default:
+            $encodedUrl = $originalServiceUrl;
+            break;
+    }
+    
+    $serviceUrl = $antiRedConfig['api_url'] . $encodedUrl;
+    
+    // 调试信息
+    error_log("防红接口应用信息: " . json_encode([
+        'type' => $antiRedConfig['type'] ?? 'unknown',
+        'applied_domain' => $antiRedConfig['applied_domain'] ?? 'unknown',
+        'api_url' => $antiRedConfig['api_url'],
+        'encoding_mode' => $encoding_mode,
+        'original_url' => $originalServiceUrl,
+        'encoded_url' => $encodedUrl,
+        'final_url' => $serviceUrl
+    ]));
+} elseif ($siteUrlConfig && !empty($siteUrlConfig['site_url_enabled']) && !empty($siteUrlConfig['site_url'])) {
+    $serviceUrl = $siteUrlConfig['site_url'] . base64_encode($originalServiceUrl);
+}
+
+// 输出调试信息（开发环境中使用）
+if (isset($_GET['debug'])) {
+    echo "<!-- 防红配置信息: " . json_encode($antiRedConfig) . " -->\n";
+    echo "<!-- 原始URL: $originalServiceUrl -->\n";
+    echo "<!-- 最终URL: $serviceUrl -->\n";
+    echo "<!-- Session状态: " . json_encode([
+        'custom_interface_url' => $_SESSION['custom_interface_url'] ?? '未设置',
+        'custom_encoding_mode' => $_SESSION['custom_encoding_mode'] ?? '未设置',
+        'custom_interface_remark' => $_SESSION['custom_interface_remark'] ?? '未设置',
+        'applied_api_url' => $_SESSION['applied_api_url'] ?? '未设置',
+        'applied_domain' => $_SESSION['applied_domain'] ?? '未设置',
+        'applied_domain_type' => $_SESSION['applied_domain_type'] ?? '未设置',
+        'redirect_to_browser' => $_SESSION['redirect_to_browser'] ?? '未设置'
+    ]) . " -->\n";
+}
+?>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>分享页</title>
+	
+	<link rel="stylesheet" href="/assets/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/SharePhoto/main.css">
+    <link rel="stylesheet" href="/assets/SharePhoto/qrcode.css">
+	
+</head>
+<body>
+
+	<div id="app" data-v-app="">
+		<div class="app-container">
+			<div class="scroll-container">
+
+				<div class="form-container">
+				 <div class="form-row">
+                    <label>防红</label>
+                    <a class="form-link anti-red-link" id="anti-red-status">
+                            <?php 
+                            if ($antiRedConfig && $antiRedConfig['apply_status'] === 'on') {
+                                echo '已配置 (' . $antiRedConfig['applied_domain'] . ')';
+                            } else {
+                                echo '未配置';
+                            }
+                            ?> </a>
+                         <!-- 移除刷新按钮 -->
+                    <div class="copy-link-btn" id="copy-link-btn">
+                        <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                            <path
+                                d="M761.088 715.3152a38.7072 38.7072 0 0 1 0-77.4144 37.4272 37.4272 0 0 0 37.4272-37.4272V265.0112a37.4272 37.4272 0 0 0-37.4272-37.4272H425.6256a37.4272 37.4272 0 0 0-37.4272 37.4272 38.7072 38.7072 0 1 1-77.4144 0 115.0976 115.0976 0 0 1 114.8416-114.8416h335.4624a115.0976 115.0976 0 0 1 114.8416 114.8416v335.4624a115.0976 115.0976 0 0 1-114.8416 114.8416z"
+                                p-id="5993" fill="#515151"></path>
+                            <path
+                                d="M589.4656 883.0976H268.1856a121.1392 121.1392 0 0 1-121.2928-121.2928v-322.56a121.1392 121.1392 0 0 1 121.2928-121.344h321.28a121.1392 121.1392 0 0 1 121.2928 121.2928v322.56c1.28 67.1232-54.1696 121.344-121.2928 121.344zM268.1856 395.3152a43.52 43.52 0 0 0-43.8784 43.8784v322.56a43.52 43.52 0 0 0 43.8784 43.8784h321.28a43.52 43.52 0 0 0 43.8784-43.8784v-322.56a43.52 43.52 0 0 0-43.8784-43.8784z"
+                                p-id="5994" fill="#515151"></path>
+                        </svg>
+                        <div>复制链接</div>
+                    </div>
+                </div>
+					<!-- 标题输入框 -->
+					<div class="form-row">
+						<label>标题</label>
+						<input type="text" id="title-input" placeholder="请输入标题" value="扫码联系客服">
+					</div>
+					<!-- 二维码链接输入框 -->
+					<div class="form-row">
+						<label>跳转链接</label>
+						<input type="text" id="qr-link-input" placeholder="请输入二维码链接">
+					</div>
+				</div>
+				<div class="XE-main">
+			  <div class="container">
+        <h1 id="preview-title">扫码联系客服</h1>
+        
+        <div class="qrcode-container">
+            <div id="qrcode"></div>
+        </div>
+    </div></div>
+		</div>
+	</div>
+	</div>
+
+	<script src="/assets/qrcode.min.js"></script>
+	<script src="/assets/qrcode-helper.js"></script>
+	<script>
+		var qrCodeUrl = "<?php echo $serviceUrl; ?>";
+		var originalServiceUrl = "<?php echo $originalServiceUrl; ?>";
+		var antiRedApiUrl = "<?php echo $antiRedConfig['api_url'] ?? ''; ?>";
+		var antiRedEnabled = <?php echo ($antiRedConfig && $antiRedConfig['apply_status'] === 'on' && !empty($antiRedConfig['api_url'])) ? 'true' : 'false'; ?>;
+		var currentQRCode = null;
+		
+		function encodeUrlForAntiRed(url) {
+		    if (!antiRedEnabled || !antiRedApiUrl) {
+		        return url;
+		    }
+		    try {
+		        var encodedLink = btoa(unescape(encodeURIComponent(url)));
+		        return antiRedApiUrl + encodedLink;
+		    } catch(e) {
+		        console.error("防红编码失败:", e);
+		        return url;
+		    }
+		}
+		
+		function showQRPlaceholder() {
+		    var qrcodeContainer = document.getElementById("qrcode");
+		    qrcodeContainer.innerHTML = `
+		        <div class="qrcode-placeholder">
+		            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+		                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+		                <line x1="3" y1="9" x2="21" y2="9"></line>
+		                <line x1="9" y1="21" x2="9" y2="9"></line>
+		            </svg>
+		            <div class="qrcode-placeholder-text">待输入链接后<br>自动生成</div>
+		        </div>
+		    `;
+		}
+		
+		function generateQRCode(url) {
+		    var qrcodeContainer = document.getElementById("qrcode");
+		    qrcodeContainer.innerHTML = "";
+
+		    try {
+		        currentQRCode = new QRCode(qrcodeContainer, {
+		            text: url,
+		            width: getQRSize(url, 150),
+		            height: getQRSize(url, 150),
+		            colorDark: "#000000",
+		            colorLight: "#ffffff",
+		            correctLevel: getQRCorrectLevel(url)
+		        });
+		    } catch(e) {
+		        console.error('QR码生成失败，尝试降级:', e);
+		        try {
+		            qrcodeContainer.innerHTML = '';
+		            currentQRCode = new QRCode(qrcodeContainer, {
+		                text: url,
+		                width: 140,
+		                height: 140,
+		                colorDark: "#000000",
+		                colorLight: "#ffffff",
+		                correctLevel: QRCode.CorrectLevel.L
+		            });
+		        } catch(e2) {
+		            qrcodeContainer.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:150px;height:150px;background:#f5f5f5;border-radius:8px;color:#999;font-size:12px;text-align:center;padding:10px;">二维码生成失败</div>';
+		        }
+		    }
+		}
+		
+		document.addEventListener('DOMContentLoaded', function() {
+		    showQRPlaceholder();
+		    
+		    var titleInput = document.getElementById('title-input');
+		    var qrLinkInput = document.getElementById('qr-link-input');
+		    var previewTitle = document.getElementById('preview-title');
+		    
+		    titleInput.addEventListener('input', function() {
+		        previewTitle.textContent = this.value || '扫码联系客服';
+		    });
+		    
+		    qrLinkInput.addEventListener('input', function() {
+		        var customUrl = this.value.trim();
+		        if (customUrl) {
+		            var urlWithAntiRed = encodeUrlForAntiRed(customUrl);
+		            generateQRCode(urlWithAntiRed);
+		        } else {
+		            showQRPlaceholder();
+		        }
+		    });
+		});
+	</script>
+	<script>
+    function copyToClipboard(text) {
+        return new Promise(function(resolve, reject) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(function() {
+                    resolve(true);
+                }).catch(function(err) {
+                    console.error('复制失败:', err);
+                    fallbackCopy(text, resolve, reject);
+                });
+            } else {
+                fallbackCopy(text, resolve, reject);
+            }
+        }).then(function(success) {
+            if (success) {
+                showToast('链接已复制到剪贴板！', 'success');
+            } else {
+                showToast('复制失败，请手动复制', 'error');
+            }
+        });
+    }
+
+    function fallbackCopy(text, resolve, reject) {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            var successful = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            resolve(successful);
+        } catch (err) {
+            console.error('复制失败:', err);
+            document.body.removeChild(textArea);
+            resolve(false);
+        }
+    }
+
+    function showToast(message, type) {
+        var container = document.getElementById('notification-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'notification-container';
+            container.className = 'notification-container';
+            document.body.appendChild(container);
+        }
+
+        var toast = document.createElement('div');
+        toast.className = 'new-user-toast notification-enter-active';
+        if (type) {
+            toast.classList.add(type);
+        }
+
+        var icon = document.createElement('div');
+        icon.className = 'toast-icon';
+        icon.textContent = type === 'error' ? '!' : '✓';
+        toast.appendChild(icon);
+
+        var text = document.createElement('div');
+        text.className = 'toast-text';
+        text.textContent = message;
+        toast.appendChild(text);
+
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'toast-close';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.addEventListener('click', function() {
+            removeToast(toast);
+        });
+        toast.appendChild(closeBtn);
+
+        container.appendChild(toast);
+
+        setTimeout(function() {
+            toast.classList.add('notification-leave-active');
+            setTimeout(function() {
+                removeToast(toast);
+            }, 300);
+        }, 4000);
+
+        function removeToast(toast) {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var copyLinkBtn = document.getElementById('copy-link-btn');
+        var qrLinkInput = document.getElementById('qr-link-input');
+        
+        if (copyLinkBtn) {
+            copyLinkBtn.addEventListener('click', function() {
+                var customUrl = qrLinkInput.value.trim();
+                if (!customUrl) {
+                    showToast('未输入链接，无法生成', 'error');
+                    return;
+                }
+                var linkToCopy = encodeUrlForAntiRed(customUrl);
+                copyToClipboard(linkToCopy);
+            });
+        }
+    });
+	</script>
+</body>
+</html>
